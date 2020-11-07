@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Schema for the <completions> root element.
+  https://docs.nova.app/syntax-reference/completions/
+-->
+<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <ref name="Completions"/>
+  </start>
+  <include href="common.rng"/>
+  <include href="provider.rng"/>
+  <define name="Completions">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#completions</a:documentation>
+    <element name="completions">
+      <interleave>
+        <zeroOrMore>
+          <ref name="Provider"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Set"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="Set">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#static-completions</a:documentation>
+    <element name="set">
+      <ref name="DottedNameAttr"/>
+      <optional>
+        <ref name="SymbolAttr"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="Completion"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="SymbolAttr">
+    <attribute name="symbol">
+      <data type="NCName"/>
+    </attribute>
+  </define>
+  <define name="Completion">
+    <element name="completion">
+      <attribute name="string">
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <optional>
+        <ref name="SymbolAttr"/>
+      </optional>
+      <optional>
+        <attribute name="case-insensitive">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="deprecated">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <ref name="StaticBehavior"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="StaticBehavior">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#behaviors</a:documentation>
+    <element name="behavior">
+      <interleave>
+        <optional>
+          <attribute name="prefix">
+            <data type="token" datatypeLibrary=""/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="suffix">
+            <data type="token" datatypeLibrary=""/>
+          </attribute>
+        </optional>
+        <optional>
+          <ref name="SymbolAttr"/>
+        </optional>
+        <optional>
+          <attribute name="shouldCompleteOnConfirm">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <ref name="AppendPrepend"/>
+      </interleave>
+    </element>
+  </define>
+</grammar>

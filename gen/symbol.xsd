@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Grammar defining the <symbol> element used in syntaxes.
+  https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-scope
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="symbol">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="display-name"/>
+        <xs:element ref="filter"/>
+        <xs:group ref="Context"/>
+      </xs:choice>
+      <xs:attributeGroup ref="TypeAttr"/>
+      <xs:attribute name="scope">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="global"/>
+            <xs:enumeration value="private"/>
+            <xs:enumeration value="local"/>
+            <xs:enumeration value="external"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="anonymous" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="TypeAttr">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-type</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="type" use="required" type="xs:string"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="ScopeAttr">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-scope</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="scope" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="global"/>
+          <xs:enumeration value="private"/>
+          <xs:enumeration value="local"/>
+          <xs:enumeration value="external"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="AnonymousAttr">
+    <xs:attribute name="anonymous" use="required" type="xs:boolean"/>
+  </xs:attributeGroup>
+  <xs:element name="display-name">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="component"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="component">
+    <xs:complexType>
+      <xs:attribute name="variable">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="name"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="selector" type="xs:string"/>
+      <xs:attribute name="prepend" type="xs:string"/>
+      <xs:attribute name="append" type="xs:string"/>
+      <xs:attribute name="replace" type="xs:string"/>
+      <xs:attribute name="replace-with" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="filter">
+    <xs:complexType>
+      <xs:attribute name="match-start" type="xs:string"/>
+      <xs:attribute name="match-end" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="Context">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/symbols/#symbolic-contexts</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="context"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="context">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="auto-close"/>
+      </xs:sequence>
+      <xs:attribute name="behavior">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="subtree"/>
+            <xs:enumeration value="whitespace"/>
+            <xs:enumeration value="start"/>
+            <xs:enumeration value="end"/>
+            <xs:enumeration value="next"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="group" type="xs:string"/>
+      <xs:attribute name="group-by-name" type="xs:boolean"/>
+      <xs:attributeGroup ref="Priority"/>
+      <xs:attribute name="export-local" type="xs:boolean"/>
+      <xs:attribute name="unclosed">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="extend-parent"/>
+            <xs:enumeration value="extend-document"/>
+            <xs:enumeration value="truncate"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="foldable" type="xs:boolean"/>
+      <xs:attribute name="fold-type" type="xs:string"/>
+      <xs:attribute name="arguments" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="auto-close">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/symbols/#auto-closing</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="string" type="xs:string"/>
+      <xs:attribute name="completion" type="xs:string"/>
+      <xs:attribute name="indentation">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="auto"/>
+            <xs:enumeration value="none"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

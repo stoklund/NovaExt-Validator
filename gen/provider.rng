@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Grammar defining completion providers. -->
+<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="Provider">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#providers</a:documentation>
+    <element name="provider">
+      <interleave>
+        <optional>
+          <ref name="DottedNameAttr"/>
+        </optional>
+        <optional>
+          <ref name="SyntaxName"/>
+        </optional>
+        <optional>
+          <ref name="Selector"/>
+        </optional>
+        <optional>
+          <ref name="Expression"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="SetRef"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="SymbolCompletion"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="SyntaxName">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#syntax</a:documentation>
+    <element name="syntax">
+      <data type="NCName"/>
+    </element>
+  </define>
+  <define name="Selector">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#selector</a:documentation>
+    <element name="selector">
+      <data type="token" datatypeLibrary=""/>
+    </element>
+  </define>
+  <define name="SetRef">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#sets</a:documentation>
+    <element name="set">
+      <ref name="DottedName"/>
+    </element>
+  </define>
+  <define name="SymbolCompletion">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#symbolic-completions</a:documentation>
+    <element name="symbols">
+      <attribute name="type">
+        <data type="token" datatypeLibrary=""/>
+      </attribute>
+      <zeroOrMore>
+        <ref name="Behavior"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Behavior">
+    <a:documentation>https://docs.nova.app/syntax-reference/completions/#behaviors-1</a:documentation>
+    <element name="behavior">
+      <interleave>
+        <optional>
+          <attribute name="prefix">
+            <data type="token" datatypeLibrary=""/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="suffix">
+            <data type="token" datatypeLibrary=""/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="shouldCompleteOnConfirm">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <ref name="AppendPrepend"/>
+        <optional>
+          <ref name="BehaviorArgs"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="BehaviorArgs">
+    <element name="arguments">
+      <optional>
+        <attribute name="prefix">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="suffix">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="separator">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="prepend-separator">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="prefix-each">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="suffix-each">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="append-empty">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="tokenize">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+</grammar>

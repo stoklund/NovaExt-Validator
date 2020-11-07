@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Schema for the <completions> root element.
+  https://docs.nova.app/syntax-reference/completions/
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:include schemaLocation="provider.xsd"/>
+  <xs:element name="completions">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="provider"/>
+        <xs:group ref="Set"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="Set">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#static-completions</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="set">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="completion"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="DottedNameAttr"/>
+          <xs:attribute name="symbol" type="xs:NCName"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="SymbolAttr">
+    <xs:attribute name="symbol" use="required" type="xs:NCName"/>
+  </xs:attributeGroup>
+  <xs:element name="completion">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="StaticBehavior"/>
+      <xs:attribute name="string" use="required" type="xs:string"/>
+      <xs:attribute name="symbol" type="xs:NCName"/>
+      <xs:attribute name="case-insensitive" type="xs:boolean"/>
+      <xs:attribute name="deprecated" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="StaticBehavior">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#behaviors</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="behavior">
+        <xs:complexType>
+          <xs:group ref="AppendPrepend"/>
+          <xs:attribute name="prefix" type="xs:token"/>
+          <xs:attribute name="suffix" type="xs:token"/>
+          <xs:attribute name="symbol" type="xs:NCName"/>
+          <xs:attribute name="shouldCompleteOnConfirm" type="xs:boolean"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+</xs:schema>

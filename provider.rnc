@@ -1,0 +1,51 @@
+# Grammar defining completion providers.
+default namespace = ""
+
+## https://docs.nova.app/syntax-reference/completions/#providers
+Provider =
+    element provider {
+        DottedNameAttr? &
+        SyntaxName? &
+        Selector? &
+        Expression? &
+        SetRef* &
+        SymbolCompletion*
+     }
+
+## https://docs.nova.app/syntax-reference/completions/#syntax
+SyntaxName = element syntax { xsd:NCName }
+
+## https://docs.nova.app/syntax-reference/completions/#selector
+Selector = element selector { token }
+
+## https://docs.nova.app/syntax-reference/completions/#sets
+SetRef = element set { DottedName }
+
+## https://docs.nova.app/syntax-reference/completions/#symbolic-completions
+SymbolCompletion =
+    element symbols {
+        attribute type { token },
+        Behavior*
+    }
+
+## https://docs.nova.app/syntax-reference/completions/#behaviors-1
+Behavior =
+    element behavior {
+        attribute prefix { token }? &
+        attribute suffix { token }? &
+        attribute shouldCompleteOnConfirm { xsd:boolean }? &
+        AppendPrepend &
+        BehaviorArgs?
+     }
+
+BehaviorArgs =
+    element arguments {
+        attribute prefix { string }?,
+        attribute suffix { string }?,
+        attribute separator { string }?,
+        attribute prepend-separator { xsd:boolean }?,
+        attribute prefix-each { string }?,
+        attribute suffix-each { string }?,
+        attribute append-empty { xsd:boolean }?,
+        attribute tokenize { xsd:boolean }?
+     }

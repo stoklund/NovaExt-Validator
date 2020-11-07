@@ -1,0 +1,32 @@
+# Schema for the <completions> root element.
+# https://docs.nova.app/syntax-reference/completions/
+default namespace = ""
+start = Completions
+include "common.rnc"
+include "provider.rnc"
+
+## https://docs.nova.app/syntax-reference/completions/#completions
+Completions = element completions { Provider* & Set* }
+
+## https://docs.nova.app/syntax-reference/completions/#static-completions
+Set = element set { DottedNameAttr, SymbolAttr?, Completion* }
+SymbolAttr = attribute symbol { xsd:NCName }
+
+Completion =
+    element completion {
+        attribute string { string },
+        SymbolAttr?,
+        attribute case-insensitive { xsd:boolean }?,
+        attribute deprecated { xsd:boolean }?,
+        StaticBehavior*
+ }
+
+## https://docs.nova.app/syntax-reference/completions/#behaviors
+StaticBehavior =
+    element behavior {
+        attribute prefix { token }? &
+        attribute suffix { token }? &
+        SymbolAttr? &
+        attribute shouldCompleteOnConfirm { xsd:boolean }? &
+        AppendPrepend
+     }

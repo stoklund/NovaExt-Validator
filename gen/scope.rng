@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Grammar definitions for validating scopes as documented in
+  https://docs.nova.app/syntax-reference/scopes/
+  
+  No start symbol defined since multiple definitions are used.
+-->
+<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <include href="symbol.rng"/>
+  <!-- All four types of scopes. Both match and start-end scopes are represented by ScopeElem. -->
+  <define name="AnyScope">
+    <choice>
+      <ref name="ScopeElem"/>
+      <ref name="CutOffScope"/>
+      <ref name="IncludeScope"/>
+    </choice>
+  </define>
+  <define name="ScopeElem">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#match-scopes</a:documentation>
+    <element name="scope">
+      <interleave>
+        <ref name="DottedNameAttr">
+          <a:documentation>https://docs.nova.app/syntax-reference/scopes/#scope-names</a:documentation>
+        </ref>
+        <ref name="ScopeOptions"/>
+        <!-- Either a match scope or a start-end scope. -->
+        <choice>
+          <ref name="ScopeExpression"/>
+          <ref name="StartEndScopeElems"/>
+        </choice>
+        <optional>
+          <ref name="Symbol"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <!-- The regular expressions in a scope may be followed by a number of capture elements. -->
+  <define name="ScopeExpression" combine="choice">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#match-scopes</a:documentation>
+    <ref name="Expression"/>
+    <zeroOrMore>
+      <ref name="Capture"/>
+    </zeroOrMore>
+  </define>
+  <!-- Captures for a regular expression element. -->
+  <define name="Capture">
+    <element name="capture">
+      <attribute name="number">
+        <data type="nonNegativeInteger"/>
+      </attribute>
+      <ref name="DottedNameAttr"/>
+    </element>
+  </define>
+  <define name="StartEndScopeElems">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#start-end-scopes</a:documentation>
+    <interleave>
+      <element name="starts-with">
+        <ref name="ScopeExpression"/>
+      </element>
+      <element name="ends-with">
+        <ref name="ScopeExpression"/>
+      </element>
+      <optional>
+        <choice>
+          <ref name="SubScopes"/>
+          <ref name="SubSyntax"/>
+        </choice>
+      </optional>
+    </interleave>
+  </define>
+  <define name="SubScopes">
+    <element name="subscopes">
+      <zeroOrMore>
+        <ref name="AnyScope"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="SubSyntax">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#subsyntaxes</a:documentation>
+    <element name="subsyntax">
+      <ref name="DottedNameAttr"/>
+      <optional>
+        <attribute name="noncontiguous">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="export-symbols">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <ref name="CutOffScope"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ScopeExpression" combine="choice">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#string-expressions</a:documentation>
+    <element name="strings">
+      <optional>
+        <attribute name="prefix">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="suffix">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="word-boundary">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="case-insensitive">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <element name="string">
+          <data type="string" datatypeLibrary=""/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="CutOffScope">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#cut-off-scopes</a:documentation>
+    <element name="cut-off">
+      <ref name="Expression"/>
+    </element>
+  </define>
+  <define name="IncludeScope">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#include-scopes</a:documentation>
+    <element name="include">
+      <attribute name="syntax">
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <optional>
+        <attribute name="collection">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="ScopeOptions">
+    <a:documentation>https://docs.nova.app/syntax-reference/scopes/#scope-options</a:documentation>
+    <optional>
+      <attribute name="spell-check">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lookup">
+        <choice>
+          <value>inherit</value>
+          <value>lookup</value>
+          <value>dictionary</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="atomic">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+  </define>
+</grammar>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Common grammar definitions. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <!--
+    Scopes and other constructs have names like foo.identifier.
+    The individual parts are XML names.
+  -->
+  <xs:attributeGroup name="DottedNameAttr">
+    <xs:attribute name="name" use="required" type="DottedName"/>
+  </xs:attributeGroup>
+  <xs:simpleType name="DottedName">
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <!-- Some constructs have plain names without any dots. -->
+  <xs:attributeGroup name="NameAttr">
+    <xs:attribute name="name" use="required" type="xs:NCName"/>
+  </xs:attributeGroup>
+  <!-- Regular expression element. -->
+  <xs:element name="expression" type="xs:string"/>
+  <!-- Append/prepend elements used in completion behaviors. -->
+  <xs:group name="AppendPrepend">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="append"/>
+        <xs:element ref="prepend"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="append" type="xs:string"/>
+  <xs:element name="prepend" type="xs:string"/>
+</xs:schema>

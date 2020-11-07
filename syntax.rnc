@@ -1,0 +1,134 @@
+# Schema for the <syntax> root node.
+# https://docs.nova.app/syntax-reference/syntaxes/
+default namespace = ""
+start = Syntax
+include "common.rnc"
+
+# Get definitions for scopes and other bits like NameAttr.
+include "scope.rnc"
+
+## https://docs.nova.app/syntax-reference/syntaxes/#syntaxes
+Syntax = element syntax {
+    NameAttr &
+    attribute subsyntax { xsd:boolean }? &
+    Meta &
+    Detectors? &
+    Indentation? &
+    Comments? &
+    Brackets? &
+    Surrounding-Pairs? &
+    Scopes? &
+    Template-Scopes? &
+    Collections? &
+    Completions?
+ }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#meta-properties
+Meta =
+    element meta {
+        ## https://docs.nova.app/syntax-reference/syntaxes/#user-readable-name
+        element name { string },
+
+        ## https://docs.nova.app/syntax-reference/syntaxes/#syntax-type
+        element type {
+            "markup"|"stylesheet"|"script"|"compiled"|"structured"
+        },
+
+        ## https://docs.nova.app/syntax-reference/syntaxes/#preferred-file-extension
+        element preferred-file-extension { token },
+
+        ## https://docs.nova.app/syntax-reference/syntaxes/#parent
+        element parent { xsd:NCName }?,
+
+        ## https://docs.nova.app/syntax-reference/syntaxes/#scriptable
+        element scriptable {
+            attribute shebang { string }?
+        }?
+    }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#detectors
+Detectors = element detectors { Detector* }
+Detector =
+    FileExtensionDetector |
+    FilenameDetector |
+    ContentMatchDetector |
+    CompoundDetector
+
+## https://docs.nova.app/syntax-reference/syntaxes/#detector-priorities
+Priority = attribute priority { xsd:decimal }?
+
+## https://docs.nova.app/syntax-reference/syntaxes/#file-extension-detectors
+FileExtensionDetector =
+    element extension { Priority, token }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#filename-detectors
+FilenameDetector =
+    element filename { Priority, string }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#content-match-detectors
+ContentMatchDetector =
+    element match-content {
+        attribute lines { xsd:positiveInteger },
+        Priority,
+        string
+    }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#compound-detectors
+CompoundDetector =
+    element combo { Priority?, Detector+ }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#indentation-rules
+Indentation =
+    element indentation {
+        element increase { Expression },
+        element decrease { Expression }
+    }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#comment-rules
+Comments =
+    element comments {
+        element single { Expression }? &
+        element multiline { StartEnd }?
+    }
+
+StartEnd =
+    element starts-with { Expression },
+    element ends-with { Expression }
+
+# https://docs.nova.app/syntax-reference/syntaxes/#brackets
+Brackets = element brackets { OpenClosePair+ }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#surrounding-pairs
+Surrounding-Pairs = element surrounding-pairs { OpenClosePair+ }
+
+OpenClosePair = element pair {
+    attribute open {string},
+    attribute close {string}
+}
+
+## https://docs.nova.app/syntax-reference/syntaxes/#scopes
+Scopes =
+    element scopes {
+        attribute spell-check { xsd:boolean }?,
+        attribute lookup { "inherit"|"lookup"|"dictionary" }?,
+        AnyScope+
+    }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#template-scopes
+Template-Scopes = element template-scopes { AnyScope+ }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#collections
+Collections =
+    element collections {
+        element collection {
+            NameAttr,
+            AnyScope*
+        }*
+    }
+
+## https://docs.nova.app/syntax-reference/syntaxes/#completions
+Completions = element completions { Provider* }
+
+include "provider.rnc" {
+    SetRef = notAllowed
+}

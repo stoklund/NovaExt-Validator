@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Grammar defining the <symbol> element used in syntaxes.
+  https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-scope
+-->
+<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="Symbol">
+    <element name="symbol">
+      <interleave>
+        <ref name="TypeAttr"/>
+        <optional>
+          <ref name="ScopeAttr"/>
+        </optional>
+        <optional>
+          <ref name="AnonymousAttr"/>
+        </optional>
+        <optional>
+          <ref name="DisplayName"/>
+        </optional>
+        <optional>
+          <ref name="Filter"/>
+        </optional>
+        <optional>
+          <ref name="Context"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="TypeAttr">
+    <a:documentation>https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-type</a:documentation>
+    <attribute name="type">
+      <data type="string" datatypeLibrary=""/>
+    </attribute>
+  </define>
+  <define name="ScopeAttr">
+    <a:documentation>https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-scope</a:documentation>
+    <attribute name="scope">
+      <choice>
+        <value>global</value>
+        <value>private</value>
+        <value>local</value>
+        <value>external</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="AnonymousAttr">
+    <attribute name="anonymous">
+      <data type="boolean"/>
+    </attribute>
+  </define>
+  <define name="DisplayName">
+    <a:documentation>https://docs.nova.app/syntax-reference/symbols/#computing-a-symbol-s-display-name</a:documentation>
+    <element name="display-name">
+      <oneOrMore>
+        <element name="component">
+          <optional>
+            <attribute name="variable">
+              <value>name</value>
+            </attribute>
+          </optional>
+          <optional>
+            <attribute name="selector">
+              <data type="string" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+          <optional>
+            <attribute name="prepend">
+              <data type="string" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+          <optional>
+            <attribute name="append">
+              <data type="string" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+          <optional>
+            <attribute name="replace">
+              <data type="string" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+          <optional>
+            <attribute name="replace-with">
+              <data type="string" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="Filter">
+    <a:documentation>https://docs.nova.app/syntax-reference/symbols/#filtering-symbols</a:documentation>
+    <element name="filter">
+      <optional>
+        <attribute name="match-start">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="match-end">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="Context">
+    <a:documentation>https://docs.nova.app/syntax-reference/symbols/#symbolic-contexts</a:documentation>
+    <optional>
+      <element name="context">
+        <optional>
+          <attribute name="behavior">
+            <choice>
+              <value>subtree</value>
+              <value>whitespace</value>
+              <value>start</value>
+              <value>end</value>
+              <value>next</value>
+            </choice>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="group">
+            <data type="string" datatypeLibrary=""/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="group-by-name">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <ref name="Priority"/>
+        <optional>
+          <attribute name="export-local">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="unclosed">
+            <choice>
+              <value>extend-parent</value>
+              <value>extend-document</value>
+              <value>truncate</value>
+            </choice>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="foldable">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="fold-type">
+            <data type="string" datatypeLibrary=""/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="arguments">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <optional>
+          <element name="auto-close">
+            <a:documentation>https://docs.nova.app/syntax-reference/symbols/#auto-closing</a:documentation>
+            <optional>
+              <attribute name="string">
+                <data type="string" datatypeLibrary=""/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="completion">
+                <data type="string" datatypeLibrary=""/>
+              </attribute>
+            </optional>
+            <optional>
+              <attribute name="indentation">
+                <choice>
+                  <value>auto</value>
+                  <value>none</value>
+                </choice>
+              </attribute>
+            </optional>
+          </element>
+        </optional>
+      </element>
+    </optional>
+  </define>
+</grammar>

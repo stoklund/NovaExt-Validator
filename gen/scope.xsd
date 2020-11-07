@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Grammar definitions for validating scopes as documented in
+  https://docs.nova.app/syntax-reference/scopes/
+  
+  No start symbol defined since multiple definitions are used.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:include schemaLocation="symbol.xsd"/>
+  <!-- All four types of scopes. Both match and start-end scopes are represented by ScopeElem. -->
+  <xs:element name="AnyScope" abstract="true"/>
+  <xs:element name="scope" substitutionGroup="AnyScope">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:choice>
+            <xs:choice>
+              <xs:element ref="expression"/>
+              <xs:element ref="capture"/>
+            </xs:choice>
+            <xs:element ref="strings"/>
+          </xs:choice>
+          <xs:group ref="StartEndScopeElems"/>
+        </xs:choice>
+        <xs:element ref="symbol"/>
+      </xs:choice>
+      <xs:attributeGroup ref="DottedNameAttr"/>
+      <xs:attributeGroup ref="ScopeOptions"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="strings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="string"/>
+      </xs:sequence>
+      <xs:attribute name="prefix" type="xs:string"/>
+      <xs:attribute name="suffix" type="xs:string"/>
+      <xs:attribute name="word-boundary" type="xs:boolean"/>
+      <xs:attribute name="case-insensitive" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="string" type="xs:string"/>
+  <!-- The regular expressions in a scope may be followed by a number of capture elements. -->
+  <xs:complexType name="ScopeExpression">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/scopes/#match-scopes</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:sequence>
+        <xs:element ref="expression"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="capture"/>
+      </xs:sequence>
+      <xs:element ref="strings"/>
+    </xs:choice>
+  </xs:complexType>
+  <!-- Captures for a regular expression element. -->
+  <xs:element name="capture">
+    <xs:complexType>
+      <xs:attribute name="number" use="required" type="xs:nonNegativeInteger"/>
+      <xs:attributeGroup ref="DottedNameAttr"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="StartEndScopeElems">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/scopes/#start-end-scopes</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="starts-with" type="ScopeExpression"/>
+        <xs:element name="ends-with" type="ScopeExpression"/>
+        <xs:choice>
+          <xs:element ref="subscopes"/>
+          <xs:element ref="subsyntax"/>
+        </xs:choice>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="subscopes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="AnyScope"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="subsyntax">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="cut-off"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="DottedNameAttr"/>
+      <xs:attribute name="noncontiguous" type="xs:boolean"/>
+      <xs:attribute name="export-symbols" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cut-off" substitutionGroup="AnyScope">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="expression"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="include" substitutionGroup="AnyScope">
+    <xs:complexType>
+      <xs:attribute name="syntax" use="required" type="xs:string"/>
+      <xs:attribute name="collection" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="ScopeOptions">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/scopes/#scope-options</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="spell-check" type="xs:boolean"/>
+    <xs:attribute name="lookup">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="inherit"/>
+          <xs:enumeration value="lookup"/>
+          <xs:enumeration value="dictionary"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="atomic" type="xs:boolean"/>
+  </xs:attributeGroup>
+</xs:schema>

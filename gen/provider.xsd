@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Grammar defining completion providers. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="provider">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="syntax"/>
+        <xs:element ref="selector"/>
+        <xs:element ref="expression"/>
+        <xs:group ref="SetRef"/>
+        <xs:element ref="symbols"/>
+      </xs:choice>
+      <xs:attribute name="name" type="DottedName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="syntax" type="xs:NCName"/>
+  <xs:element name="selector" type="xs:token"/>
+  <xs:group name="SetRef">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#sets</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="set" type="DottedName"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="symbols">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="Behavior"/>
+      <xs:attribute name="type" use="required" type="xs:token"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="Behavior">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#behaviors-1</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="behavior">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="AppendPrepend"/>
+            <xs:element ref="arguments"/>
+          </xs:choice>
+          <xs:attribute name="prefix" type="xs:token"/>
+          <xs:attribute name="suffix" type="xs:token"/>
+          <xs:attribute name="shouldCompleteOnConfirm" type="xs:boolean"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="arguments">
+    <xs:complexType>
+      <xs:attribute name="prefix" type="xs:string"/>
+      <xs:attribute name="suffix" type="xs:string"/>
+      <xs:attribute name="separator" type="xs:string"/>
+      <xs:attribute name="prepend-separator" type="xs:boolean"/>
+      <xs:attribute name="prefix-each" type="xs:string"/>
+      <xs:attribute name="suffix-each" type="xs:string"/>
+      <xs:attribute name="append-empty" type="xs:boolean"/>
+      <xs:attribute name="tokenize" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

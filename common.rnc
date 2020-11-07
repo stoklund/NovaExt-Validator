@@ -1,0 +1,18 @@
+# Common grammar definitions.
+default namespace = ""
+
+# Scopes and other constructs have names like foo.identifier.
+# The individual parts are XML names.
+DottedNameAttr = attribute name { DottedName }
+DottedName = token
+
+# Some constructs have plain names without any dots.
+NameAttr = attribute name { xsd:NCName }
+
+# Regular expression element.
+Expression = element expression { string }
+
+# Append/prepend elements used in completion behaviors.
+AppendPrepend =
+    element append { string }? &
+    element prepend { string }?

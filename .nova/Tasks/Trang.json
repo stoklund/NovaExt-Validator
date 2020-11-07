@@ -1,0 +1,9 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "#!\/bin\/sh\nmake -C gen"
+    }
+  },
+  "identifier" : "58C1DD5F-D4D6-4032-BA86-8DB81C354D86"
+}

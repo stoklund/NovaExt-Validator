@@ -1,0 +1,61 @@
+# Grammar defining the <symbol> element used in syntaxes.
+# https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-scope
+default namespace = ""
+
+Symbol = element symbol {
+    TypeAttr &
+    ScopeAttr? &
+    AnonymousAttr? &
+    DisplayName? &
+    Filter? &
+    Context?
+}
+
+## https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-type
+TypeAttr = attribute type {string}
+
+## https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-scope
+ScopeAttr =
+    attribute scope { "global"|"private"|"local"|"external" }
+AnonymousAttr = attribute anonymous { xsd:boolean }
+
+## https://docs.nova.app/syntax-reference/symbols/#computing-a-symbol-s-display-name
+DisplayName =
+    element display-name {
+        element component {
+            attribute variable { "name" }?,
+            attribute selector { string }?,
+            attribute prepend { string }?,
+            attribute append { string }?,
+            attribute replace { string }?,
+            attribute replace-with { string }?
+        }+
+    }
+
+## https://docs.nova.app/syntax-reference/symbols/#filtering-symbols
+Filter =
+    element filter {
+        attribute match-start { string }?,
+        attribute match-end { string }?
+    }
+
+## https://docs.nova.app/syntax-reference/symbols/#symbolic-contexts
+Context =
+    element context {
+        attribute behavior { "subtree"|"whitespace"|"start"|"end"|"next" }?,
+        attribute group { string }?,
+        attribute group-by-name { xsd:boolean }?,
+        Priority,
+        attribute export-local { xsd:boolean }?,
+        attribute unclosed { "extend-parent"|"extend-document"|"truncate" }?,
+        attribute foldable { xsd:boolean }?,
+        attribute fold-type { string }?,
+        attribute arguments { xsd:boolean }?,
+
+        ## https://docs.nova.app/syntax-reference/symbols/#auto-closing
+        element auto-close {
+            attribute string { string }?,
+            attribute completion { string }?,
+            attribute indentation { "auto"|"none" }?
+        }?
+    }?

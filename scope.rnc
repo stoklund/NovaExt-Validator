@@ -1,0 +1,73 @@
+# Grammar definitions for validating scopes as documented in
+# https://docs.nova.app/syntax-reference/scopes/
+#
+# No start symbol defined since multiple definitions are used.
+default namespace = ""
+
+include "symbol.rnc"
+
+# All four types of scopes. Both match and start-end scopes are represented by ScopeElem.
+AnyScope = ScopeElem | CutOffScope | IncludeScope
+
+## https://docs.nova.app/syntax-reference/scopes/#match-scopes
+ScopeElem = element scope {
+    ## https://docs.nova.app/syntax-reference/scopes/#scope-names
+    DottedNameAttr &
+    ScopeOptions &
+    # Either a match scope or a start-end scope.
+    (ScopeExpression | StartEndScopeElems) &
+    Symbol?
+}
+
+# The regular expressions in a scope may be followed by a number of capture elements.
+## https://docs.nova.app/syntax-reference/scopes/#match-scopes
+ScopeExpression |= Expression, Capture*
+
+# Captures for a regular expression element.
+Capture =
+    element capture {
+            attribute number { xsd:nonNegativeInteger },
+            DottedNameAttr
+    }
+
+## https://docs.nova.app/syntax-reference/scopes/#start-end-scopes
+StartEndScopeElems =
+    element starts-with { ScopeExpression } &
+    element ends-with { ScopeExpression } &
+    (SubScopes | SubSyntax)?
+
+SubScopes = element subscopes { AnyScope* }
+
+## https://docs.nova.app/syntax-reference/scopes/#subsyntaxes
+SubSyntax =
+        element subsyntax {
+            DottedNameAttr,
+            attribute noncontiguous { xsd:boolean }?,
+            attribute export-symbols { xsd:boolean }?,
+            CutOffScope*
+        }
+
+## https://docs.nova.app/syntax-reference/scopes/#string-expressions
+ScopeExpression |=
+    element strings {
+        attribute prefix {string}?,
+        attribute suffix {string}?,
+        attribute word-boundary {xsd:boolean}?,
+        attribute case-insensitive {xsd:boolean}?,
+        element string {string}*
+    }
+
+## https://docs.nova.app/syntax-reference/scopes/#cut-off-scopes
+CutOffScope = element cut-off { Expression }
+
+## https://docs.nova.app/syntax-reference/scopes/#include-scopes
+IncludeScope = element include {
+    attribute syntax {string},
+    attribute collection {string}?
+}
+
+## https://docs.nova.app/syntax-reference/scopes/#scope-options
+ScopeOptions =
+    attribute spell-check { xsd:boolean }?,
+    attribute lookup { "inherit"|"lookup"|"dictionary" }?,
+    attribute atomic { xsd:boolean }?

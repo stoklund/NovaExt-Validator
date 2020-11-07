@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Schema for the <syntax> root node.
+  https://docs.nova.app/syntax-reference/syntaxes/
+-->
+<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <ref name="Syntax"/>
+  </start>
+  <include href="common.rng"/>
+  <!-- Get definitions for scopes and other bits like NameAttr. -->
+  <include href="scope.rng"/>
+  <define name="Syntax">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#syntaxes</a:documentation>
+    <element name="syntax">
+      <interleave>
+        <ref name="NameAttr"/>
+        <optional>
+          <attribute name="subsyntax">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <ref name="Meta"/>
+        <optional>
+          <ref name="Detectors"/>
+        </optional>
+        <optional>
+          <ref name="Indentation"/>
+        </optional>
+        <optional>
+          <ref name="Comments"/>
+        </optional>
+        <optional>
+          <ref name="Brackets"/>
+        </optional>
+        <optional>
+          <ref name="Surrounding-Pairs"/>
+        </optional>
+        <optional>
+          <ref name="Scopes"/>
+        </optional>
+        <optional>
+          <ref name="Template-Scopes"/>
+        </optional>
+        <optional>
+          <ref name="Collections"/>
+        </optional>
+        <optional>
+          <ref name="Completions"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="Meta">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#meta-properties</a:documentation>
+    <element name="meta">
+      <element name="name">
+        <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#user-readable-name</a:documentation>
+        <data type="string" datatypeLibrary=""/>
+      </element>
+      <element name="type">
+        <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#syntax-type</a:documentation>
+        <choice>
+          <value>markup</value>
+          <value>stylesheet</value>
+          <value>script</value>
+          <value>compiled</value>
+          <value>structured</value>
+        </choice>
+      </element>
+      <element name="preferred-file-extension">
+        <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#preferred-file-extension</a:documentation>
+        <data type="token" datatypeLibrary=""/>
+      </element>
+      <optional>
+        <element name="parent">
+          <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#parent</a:documentation>
+          <data type="NCName"/>
+        </element>
+      </optional>
+      <optional>
+        <element name="scriptable">
+          <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#scriptable</a:documentation>
+          <optional>
+            <attribute name="shebang">
+              <data type="string" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+        </element>
+      </optional>
+    </element>
+  </define>
+  <define name="Detectors">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#detectors</a:documentation>
+    <element name="detectors">
+      <zeroOrMore>
+        <ref name="Detector"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Detector">
+    <choice>
+      <ref name="FileExtensionDetector"/>
+      <ref name="FilenameDetector"/>
+      <ref name="ContentMatchDetector"/>
+      <ref name="CompoundDetector"/>
+    </choice>
+  </define>
+  <define name="Priority">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#detector-priorities</a:documentation>
+    <optional>
+      <attribute name="priority">
+        <data type="decimal"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="FileExtensionDetector">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#file-extension-detectors</a:documentation>
+    <element name="extension">
+      <ref name="Priority"/>
+      <data type="token" datatypeLibrary=""/>
+    </element>
+  </define>
+  <define name="FilenameDetector">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#filename-detectors</a:documentation>
+    <element name="filename">
+      <ref name="Priority"/>
+      <data type="string" datatypeLibrary=""/>
+    </element>
+  </define>
+  <define name="ContentMatchDetector">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#content-match-detectors</a:documentation>
+    <element name="match-content">
+      <attribute name="lines">
+        <data type="positiveInteger"/>
+      </attribute>
+      <ref name="Priority"/>
+      <data type="string" datatypeLibrary=""/>
+    </element>
+  </define>
+  <define name="CompoundDetector">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#compound-detectors</a:documentation>
+    <element name="combo">
+      <optional>
+        <ref name="Priority"/>
+      </optional>
+      <oneOrMore>
+        <ref name="Detector"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="Indentation">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#indentation-rules</a:documentation>
+    <element name="indentation">
+      <element name="increase">
+        <ref name="Expression"/>
+      </element>
+      <element name="decrease">
+        <ref name="Expression"/>
+      </element>
+    </element>
+  </define>
+  <define name="Comments">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#comment-rules</a:documentation>
+    <element name="comments">
+      <interleave>
+        <optional>
+          <element name="single">
+            <ref name="Expression"/>
+          </element>
+        </optional>
+        <optional>
+          <element name="multiline">
+            <ref name="StartEnd"/>
+          </element>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="StartEnd">
+    <element name="starts-with">
+      <ref name="Expression"/>
+    </element>
+    <element name="ends-with">
+      <ref name="Expression"/>
+    </element>
+  </define>
+  <!-- https://docs.nova.app/syntax-reference/syntaxes/#brackets -->
+  <define name="Brackets">
+    <element name="brackets">
+      <oneOrMore>
+        <ref name="OpenClosePair"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="Surrounding-Pairs">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#surrounding-pairs</a:documentation>
+    <element name="surrounding-pairs">
+      <oneOrMore>
+        <ref name="OpenClosePair"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="OpenClosePair">
+    <element name="pair">
+      <attribute name="open">
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+      <attribute name="close">
+        <data type="string" datatypeLibrary=""/>
+      </attribute>
+    </element>
+  </define>
+  <define name="Scopes">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#scopes</a:documentation>
+    <element name="scopes">
+      <optional>
+        <attribute name="spell-check">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="lookup">
+          <choice>
+            <value>inherit</value>
+            <value>lookup</value>
+            <value>dictionary</value>
+          </choice>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <ref name="AnyScope"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="Template-Scopes">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#template-scopes</a:documentation>
+    <element name="template-scopes">
+      <oneOrMore>
+        <ref name="AnyScope"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="Collections">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#collections</a:documentation>
+    <element name="collections">
+      <zeroOrMore>
+        <element name="collection">
+          <ref name="NameAttr"/>
+          <zeroOrMore>
+            <ref name="AnyScope"/>
+          </zeroOrMore>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Completions">
+    <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#completions</a:documentation>
+    <element name="completions">
+      <zeroOrMore>
+        <ref name="Provider"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <include href="provider.rng">
+    <define name="SetRef">
+      <notAllowed/>
+    </define>
+  </include>
+</grammar>

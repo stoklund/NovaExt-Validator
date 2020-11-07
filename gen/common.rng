@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Common grammar definitions. -->
+<grammar ns="" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!--
+    Scopes and other constructs have names like foo.identifier.
+    The individual parts are XML names.
+  -->
+  <define name="DottedNameAttr">
+    <attribute name="name">
+      <ref name="DottedName"/>
+    </attribute>
+  </define>
+  <define name="DottedName">
+    <data type="token" datatypeLibrary=""/>
+  </define>
+  <!-- Some constructs have plain names without any dots. -->
+  <define name="NameAttr">
+    <attribute name="name">
+      <data type="NCName"/>
+    </attribute>
+  </define>
+  <!-- Regular expression element. -->
+  <define name="Expression">
+    <element name="expression">
+      <data type="string" datatypeLibrary=""/>
+    </element>
+  </define>
+  <!-- Append/prepend elements used in completion behaviors. -->
+  <define name="AppendPrepend">
+    <interleave>
+      <optional>
+        <element name="append">
+          <data type="string" datatypeLibrary=""/>
+        </element>
+      </optional>
+      <optional>
+        <element name="prepend">
+          <data type="string" datatypeLibrary=""/>
+        </element>
+      </optional>
+    </interleave>
+  </define>
+</grammar>
