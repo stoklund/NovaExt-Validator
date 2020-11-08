@@ -132,3 +132,20 @@ Maybe from an older schema?
         <string>&amp;apos;</string>
 ```
 
+## Markdown
+
+### Multiple surrounding-pairs elements
+
+The Markdown extension has two `<surrounding-pairs>` elements. Looks like a copy-pasto.
+
+### Dynamic subsyntax redirection
+
+The code blocks handle dynamic subsyntaxes like this:
+
+```xml
+<subsyntax capture="2">
+    <alias key="objc" value="objective-c" />
+```
+
+This mechanism is not documented (maybe intentionally?).
+
