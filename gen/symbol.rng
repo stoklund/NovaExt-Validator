@@ -134,13 +134,7 @@
           </attribute>
         </optional>
         <optional>
-          <attribute name="unclosed">
-            <choice>
-              <value>extend-parent</value>
-              <value>extend-document</value>
-              <value>truncate</value>
-            </choice>
-          </attribute>
+          <ref name="UnclosedAttr"/>
         </optional>
         <optional>
           <attribute name="foldable">
@@ -182,5 +176,16 @@
         </optional>
       </element>
     </optional>
+  </define>
+  <define name="UnclosedAttr">
+    <attribute name="unclosed">
+      <choice>
+        <value>extend-parent</value>
+        <value>extend-document</value>
+        <value>truncate</value>
+        <value>parent</value>
+        <a:documentation>undocumented</a:documentation>
+      </choice>
+    </attribute>
   </define>
 </grammar>

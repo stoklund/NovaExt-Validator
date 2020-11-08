@@ -34,6 +34,7 @@ StaticBehavior =
     element behavior {
         attribute prefix { token }? &
         attribute suffix { token }? &
+        VariablesAttr? &
         SymbolAttr? &
         CompleteOnConfirmAttr? &
         AppendPrepend
@@ -46,3 +47,6 @@ StaticBehavior =
 # Found a single case in CSS completions.
 ## undocumented
 DescriptionAttr = attribute description { string }
+
+# Found in HTML completions
+VariablesAttr = attribute variables { xsd:boolean }

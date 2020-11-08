@@ -62,3 +62,73 @@ A `completion string="..." description="..."` appeared. Is this attribute used?
 
 A completion provider contains an `<assistant type="files" />` element.
 
+## HTML
+
+### Documentation lookup
+A number of syntax scopes have a `lookup="documentation"`, but the documentation only mentions the possibilities:
+
+```relaxng
+attribute lookup { "inherit"|"lookup"|"dictionary" }?,
+```
+
+### Unclosed parent or extend-parent
+
+The symbol context attribute `unclosed` has a documented value of `extend-parent`, byt the HTML syntax uses:
+
+```xml
+<context behavior="start" group-by-name="true" unclosed="parent">
+```
+
+So do some of the examples in the documentation.
+
+### Subsyntax collection attribute
+
+Can a subsyntax reference a collection of another syntax?
+
+```xml
+<subsyntax name="css" collection="attributes">
+```
+
+This isn't documented.
+
+### Regex templates
+
+What's this?
+
+```xml
+<ends-with>
+    <template>\3</template>
+    <capture number="0" name="html.tag.attribute.value.quote.right" />
+</ends-with>
+```
+
+Named, reusable regex fragments like Lex offers would be cool.
+
+### Syntax reference on provider symbols
+
+In an HTML completion provider:
+
+```xml
+<symbols type="style-class" syntax="css" />
+```
+
+Is this a leftover from an older schema?
+
+### Behavior variables
+
+This `variables` attribute does not seem to be documented:
+
+```xml
+<behavior variables="true" suffix="(?!&gt;)">
+```
+
+### Strings in completion set
+
+Maybe from an older schema?
+
+```xml
+    <set name="html.entities">
+        <string>&amp;quot;</string>
+        <string>&amp;apos;</string>
+```
+

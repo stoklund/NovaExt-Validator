@@ -83,6 +83,9 @@
           </attribute>
         </optional>
         <optional>
+          <ref name="VariablesAttr"/>
+        </optional>
+        <optional>
           <ref name="SymbolAttr"/>
         </optional>
         <optional>
@@ -102,6 +105,12 @@
     <a:documentation>undocumented</a:documentation>
     <attribute name="description">
       <data type="string" datatypeLibrary=""/>
+    </attribute>
+  </define>
+  <!-- Found in HTML completions -->
+  <define name="VariablesAttr">
+    <attribute name="variables">
+      <data type="boolean"/>
     </attribute>
   </define>
 </grammar>

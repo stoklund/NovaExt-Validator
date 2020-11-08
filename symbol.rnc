@@ -47,7 +47,7 @@ Context =
         attribute group-by-name { xsd:boolean }?,
         Priority,
         attribute export-local { xsd:boolean }?,
-        attribute unclosed { "extend-parent"|"extend-document"|"truncate" }?,
+        UnclosedAttr?,
         attribute foldable { xsd:boolean }?,
         attribute fold-type { string }?,
         attribute arguments { xsd:boolean }?,
@@ -59,3 +59,10 @@ Context =
             attribute indentation { "auto"|"none" }?
         }?
     }?
+
+UnclosedAttr =
+    attribute unclosed {
+        "extend-parent"|"extend-document"|"truncate"|
+        ## undocumented
+        "parent"
+     }

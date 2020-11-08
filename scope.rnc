@@ -44,6 +44,8 @@ SubSyntax =
             DottedNameAttr,
             attribute noncontiguous { xsd:boolean }?,
             attribute export-symbols { xsd:boolean }?,
+            ## undocumented
+            CollectionAttr?,
             CutOffScope*
         }
 
@@ -65,11 +67,17 @@ CutOffScope = element cut-off { Expression }
 ## https://docs.nova.app/syntax-reference/scopes/#include-scopes
 IncludeScope = element include {
     attribute syntax {string},
-    attribute collection {string}?
+    CollectionAttr?
 }
+
+CollectionAttr = attribute collection {string}
 
 ## https://docs.nova.app/syntax-reference/scopes/#scope-options
 ScopeOptions =
     attribute spell-check { xsd:boolean }?,
-    attribute lookup { "inherit"|"lookup"|"dictionary" }?,
+    attribute lookup {
+        "inherit"|"lookup"|"dictionary"|
+        ## undocumented
+        "documentation"
+     }?,
     attribute atomic { xsd:boolean }?

@@ -112,6 +112,11 @@
             <xs:enumeration value="extend-parent"/>
             <xs:enumeration value="extend-document"/>
             <xs:enumeration value="truncate"/>
+            <xs:enumeration value="parent">
+              <xs:annotation>
+                <xs:documentation>undocumented</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
@@ -137,4 +142,20 @@
       </xs:attribute>
     </xs:complexType>
   </xs:element>
+  <xs:attributeGroup name="UnclosedAttr">
+    <xs:attribute name="unclosed" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="extend-parent"/>
+          <xs:enumeration value="extend-document"/>
+          <xs:enumeration value="truncate"/>
+          <xs:enumeration value="parent">
+            <xs:annotation>
+              <xs:documentation>undocumented</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
 </xs:schema>

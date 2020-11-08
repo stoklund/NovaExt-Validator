@@ -26,6 +26,7 @@ SetRef = element set { DottedName }
 SymbolCompletion =
     element symbols {
         attribute type { token },
+        SyntaxAttr?,
         Behavior*
     }
 
@@ -67,3 +68,7 @@ CompleteOnConfirmAttr =
     # Possible misspelling in CSS completions?
     ## undocumented
     attribute complete-on-confirm { xsd:boolean }
+
+# Found in HTML completions.
+## undocumented
+SyntaxAttr = attribute syntax { xsd:NCName }

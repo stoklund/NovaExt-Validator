@@ -54,6 +54,7 @@
           <xs:group ref="AppendPrepend"/>
           <xs:attribute name="prefix" type="xs:token"/>
           <xs:attribute name="suffix" type="xs:token"/>
+          <xs:attribute name="variables" type="xs:boolean"/>
           <xs:attribute name="symbol" type="xs:NCName"/>
           <xs:attributeGroup ref="CompleteOnConfirmAttr"/>
         </xs:complexType>
@@ -71,5 +72,9 @@
       <xs:documentation>undocumented</xs:documentation>
     </xs:annotation>
     <xs:attribute name="description" use="required" type="xs:string"/>
+  </xs:attributeGroup>
+  <!-- Found in HTML completions -->
+  <xs:attributeGroup name="VariablesAttr">
+    <xs:attribute name="variables" use="required" type="xs:boolean"/>
   </xs:attributeGroup>
 </xs:schema>

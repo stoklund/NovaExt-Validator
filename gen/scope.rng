@@ -89,6 +89,11 @@
           <data type="boolean"/>
         </attribute>
       </optional>
+      <optional>
+        <ref name="CollectionAttr">
+          <a:documentation>undocumented</a:documentation>
+        </ref>
+      </optional>
       <zeroOrMore>
         <ref name="CutOffScope"/>
       </zeroOrMore>
@@ -142,11 +147,14 @@
         <data type="string" datatypeLibrary=""/>
       </attribute>
       <optional>
-        <attribute name="collection">
-          <data type="string" datatypeLibrary=""/>
-        </attribute>
+        <ref name="CollectionAttr"/>
       </optional>
     </element>
+  </define>
+  <define name="CollectionAttr">
+    <attribute name="collection">
+      <data type="string" datatypeLibrary=""/>
+    </attribute>
   </define>
   <define name="ScopeOptions">
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#scope-options</a:documentation>
@@ -161,6 +169,8 @@
           <value>inherit</value>
           <value>lookup</value>
           <value>dictionary</value>
+          <value>documentation</value>
+          <a:documentation>undocumented</a:documentation>
         </choice>
       </attribute>
     </optional>

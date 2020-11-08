@@ -28,6 +28,7 @@
     <xs:complexType>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="Behavior"/>
       <xs:attribute name="type" use="required" type="xs:token"/>
+      <xs:attribute name="syntax" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
   <xs:group name="Behavior">
@@ -78,5 +79,12 @@
         <xs:documentation>undocumented</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+  </xs:attributeGroup>
+  <!-- Found in HTML completions. -->
+  <xs:attributeGroup name="SyntaxAttr">
+    <xs:annotation>
+      <xs:documentation>undocumented</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="syntax" use="required" type="xs:NCName"/>
   </xs:attributeGroup>
 </xs:schema>

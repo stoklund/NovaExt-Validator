@@ -103,6 +103,7 @@
       <xs:attributeGroup ref="DottedNameAttr"/>
       <xs:attribute name="noncontiguous" type="xs:boolean"/>
       <xs:attribute name="export-symbols" type="xs:boolean"/>
+      <xs:attribute name="collection" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="cut-off" substitutionGroup="AnyScope">
@@ -118,6 +119,9 @@
       <xs:attribute name="collection" type="xs:string"/>
     </xs:complexType>
   </xs:element>
+  <xs:attributeGroup name="CollectionAttr">
+    <xs:attribute name="collection" use="required" type="xs:string"/>
+  </xs:attributeGroup>
   <xs:attributeGroup name="ScopeOptions">
     <xs:annotation>
       <xs:documentation>https://docs.nova.app/syntax-reference/scopes/#scope-options</xs:documentation>
@@ -129,6 +133,11 @@
           <xs:enumeration value="inherit"/>
           <xs:enumeration value="lookup"/>
           <xs:enumeration value="dictionary"/>
+          <xs:enumeration value="documentation">
+            <xs:annotation>
+              <xs:documentation>undocumented</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>

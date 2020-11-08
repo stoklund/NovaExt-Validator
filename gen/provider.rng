@@ -53,6 +53,9 @@
       <attribute name="type">
         <data type="token" datatypeLibrary=""/>
       </attribute>
+      <optional>
+        <ref name="SyntaxAttr"/>
+      </optional>
       <zeroOrMore>
         <ref name="Behavior"/>
       </zeroOrMore>
@@ -151,5 +154,12 @@
         <data type="boolean"/>
       </attribute>
     </choice>
+  </define>
+  <!-- Found in HTML completions. -->
+  <define name="SyntaxAttr">
+    <a:documentation>undocumented</a:documentation>
+    <attribute name="syntax">
+      <data type="NCName"/>
+    </attribute>
   </define>
 </grammar>
