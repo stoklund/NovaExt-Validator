@@ -9,6 +9,7 @@
         <xs:element ref="expression"/>
         <xs:group ref="SetRef"/>
         <xs:element ref="symbols"/>
+        <xs:element ref="assistant"/>
       </xs:choice>
       <xs:attribute name="name" type="DottedName"/>
     </xs:complexType>
@@ -42,7 +43,7 @@
           </xs:choice>
           <xs:attribute name="prefix" type="xs:token"/>
           <xs:attribute name="suffix" type="xs:token"/>
-          <xs:attribute name="shouldCompleteOnConfirm" type="xs:boolean"/>
+          <xs:attributeGroup ref="CompleteOnConfirmAttr"/>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -59,4 +60,23 @@
       <xs:attribute name="tokenize" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in CSS completions. -->
+  <xs:element name="assistant">
+    <xs:complexType>
+      <xs:attribute name="type" use="required" type="xs:token"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="CompleteOnConfirmAttr">
+    <xs:attribute name="shouldCompleteOnConfirm" type="xs:boolean"/>
+    <xs:attribute name="complete-on-confirm" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>undocumented</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
 </xs:schema>

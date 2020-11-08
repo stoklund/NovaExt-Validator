@@ -10,9 +10,17 @@ DottedName = token
 NameAttr = attribute name { xsd:NCName }
 
 # Regular expression element.
-Expression = element expression { string }
+Expression = element expression { CaptureAttr?, string }
 
 # Append/prepend elements used in completion behaviors.
 AppendPrepend =
     element append { string }? &
     element prepend { string }?
+
+#
+# === Undocumented elements and attributes ===
+#
+
+# Found in CSS completions.
+## undocumented
+CaptureAttr = attribute capture { xsd:nonNegativeInteger }

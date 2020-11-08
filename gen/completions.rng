@@ -30,6 +30,9 @@
         <ref name="SymbolAttr"/>
       </optional>
       <zeroOrMore>
+        <ref name="StaticBehavior"/>
+      </zeroOrMore>
+      <zeroOrMore>
         <ref name="Completion"/>
       </zeroOrMore>
     </element>
@@ -46,6 +49,9 @@
       </attribute>
       <optional>
         <ref name="SymbolAttr"/>
+      </optional>
+      <optional>
+        <ref name="DescriptionAttr"/>
       </optional>
       <optional>
         <attribute name="case-insensitive">
@@ -80,12 +86,22 @@
           <ref name="SymbolAttr"/>
         </optional>
         <optional>
-          <attribute name="shouldCompleteOnConfirm">
-            <data type="boolean"/>
-          </attribute>
+          <ref name="CompleteOnConfirmAttr"/>
         </optional>
         <ref name="AppendPrepend"/>
       </interleave>
     </element>
+  </define>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found a single case in CSS completions. -->
+  <define name="DescriptionAttr">
+    <a:documentation>undocumented</a:documentation>
+    <attribute name="description">
+      <data type="string" datatypeLibrary=""/>
+    </attribute>
   </define>
 </grammar>

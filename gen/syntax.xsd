@@ -18,6 +18,7 @@
           <xs:choice minOccurs="0" maxOccurs="unbounded">
             <xs:element ref="meta"/>
             <xs:element ref="detectors"/>
+            <xs:element ref="identifiers"/>
             <xs:element ref="indentation"/>
             <xs:element ref="comments"/>
             <xs:element ref="brackets"/>
@@ -251,6 +252,39 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="provider"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in CSS and others. -->
+  <xs:element name="identifiers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="characters"/>
+        <xs:element minOccurs="0" ref="prefixes"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="characters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="alphanumeric"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="alphanumeric">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="string" type="xs:string"/>
+  <xs:element name="prefixes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

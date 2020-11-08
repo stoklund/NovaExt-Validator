@@ -25,6 +25,9 @@
           <ref name="Detectors"/>
         </optional>
         <optional>
+          <ref name="Identifiers"/>
+        </optional>
+        <optional>
           <ref name="Indentation"/>
         </optional>
         <optional>
@@ -267,4 +270,37 @@
       <notAllowed/>
     </define>
   </include>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in CSS and others. -->
+  <define name="Identifiers">
+    <element name="identifiers">
+      <optional>
+        <element name="characters">
+          <optional>
+            <element name="alphanumeric">
+              <empty/>
+            </element>
+          </optional>
+          <zeroOrMore>
+            <element name="string">
+              <data type="string" datatypeLibrary=""/>
+            </element>
+          </zeroOrMore>
+        </element>
+      </optional>
+      <optional>
+        <element name="prefixes">
+          <zeroOrMore>
+            <element name="string">
+              <data type="string" datatypeLibrary=""/>
+            </element>
+          </zeroOrMore>
+        </element>
+      </optional>
+    </element>
+  </define>
 </grammar>

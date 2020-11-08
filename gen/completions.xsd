@@ -22,6 +22,7 @@
       <xs:element name="set">
         <xs:complexType>
           <xs:sequence>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="StaticBehavior"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="completion"/>
           </xs:sequence>
           <xs:attributeGroup ref="DottedNameAttr"/>
@@ -38,6 +39,7 @@
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="StaticBehavior"/>
       <xs:attribute name="string" use="required" type="xs:string"/>
       <xs:attribute name="symbol" type="xs:NCName"/>
+      <xs:attribute name="description" type="xs:string"/>
       <xs:attribute name="case-insensitive" type="xs:boolean"/>
       <xs:attribute name="deprecated" type="xs:boolean"/>
     </xs:complexType>
@@ -53,9 +55,21 @@
           <xs:attribute name="prefix" type="xs:token"/>
           <xs:attribute name="suffix" type="xs:token"/>
           <xs:attribute name="symbol" type="xs:NCName"/>
-          <xs:attribute name="shouldCompleteOnConfirm" type="xs:boolean"/>
+          <xs:attributeGroup ref="CompleteOnConfirmAttr"/>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
   </xs:group>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found a single case in CSS completions. -->
+  <xs:attributeGroup name="DescriptionAttr">
+    <xs:annotation>
+      <xs:documentation>undocumented</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="description" use="required" type="xs:string"/>
+  </xs:attributeGroup>
 </xs:schema>

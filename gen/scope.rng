@@ -123,6 +123,11 @@
         </element>
       </zeroOrMore>
     </element>
+    <zeroOrMore>
+      <ref name="Capture">
+        <a:documentation>undocumented</a:documentation>
+      </ref>
+    </zeroOrMore>
   </define>
   <define name="CutOffScope">
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#cut-off-scopes</a:documentation>

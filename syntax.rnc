@@ -13,6 +13,7 @@ Syntax = element syntax {
     attribute subsyntax { xsd:boolean }? &
     Meta &
     Detectors? &
+    Identifiers? &
     Indentation? &
     Comments? &
     Brackets? &
@@ -132,3 +133,19 @@ Completions = element completions { Provider* }
 include "provider.rnc" {
     SetRef = notAllowed
 }
+
+#
+# === Undocumented elements and attributes ===
+#
+
+# Found in CSS and others.
+Identifiers =
+    element identifiers {
+        element characters {
+            element alphanumeric { empty }?,
+            element string { string }*
+        }?,
+        element prefixes {
+            element string { string }*
+        }?
+    }

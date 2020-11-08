@@ -55,7 +55,9 @@ ScopeExpression |=
         attribute word-boundary {xsd:boolean}?,
         attribute case-insensitive {xsd:boolean}?,
         element string {string}*
-    }
+    },
+    ## undocumented
+    Capture*
 
 ## https://docs.nova.app/syntax-reference/scopes/#cut-off-scopes
 CutOffScope = element cut-off { Expression }

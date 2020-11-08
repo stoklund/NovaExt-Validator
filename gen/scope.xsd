@@ -18,7 +18,14 @@
               <xs:element ref="expression"/>
               <xs:element ref="capture"/>
             </xs:choice>
-            <xs:element ref="strings"/>
+            <xs:choice>
+              <xs:element ref="strings"/>
+              <xs:element ref="capture">
+                <xs:annotation>
+                  <xs:documentation>undocumented</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:choice>
           </xs:choice>
           <xs:group ref="StartEndScopeElems"/>
         </xs:choice>
@@ -39,7 +46,6 @@
       <xs:attribute name="case-insensitive" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="string" type="xs:string"/>
   <!-- The regular expressions in a scope may be followed by a number of capture elements. -->
   <xs:complexType name="ScopeExpression">
     <xs:annotation>
@@ -50,7 +56,14 @@
         <xs:element ref="expression"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="capture"/>
       </xs:sequence>
-      <xs:element ref="strings"/>
+      <xs:sequence>
+        <xs:element ref="strings"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="capture">
+          <xs:annotation>
+            <xs:documentation>undocumented</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
     </xs:choice>
   </xs:complexType>
   <!-- Captures for a regular expression element. -->

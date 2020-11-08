@@ -9,13 +9,21 @@ include "provider.rnc"
 Completions = element completions { Provider* & Set* }
 
 ## https://docs.nova.app/syntax-reference/completions/#static-completions
-Set = element set { DottedNameAttr, SymbolAttr?, Completion* }
+Set =
+    element set {
+        DottedNameAttr,
+        SymbolAttr?,
+        StaticBehavior*,
+        Completion*
+    }
+
 SymbolAttr = attribute symbol { xsd:NCName }
 
 Completion =
     element completion {
         attribute string { string },
         SymbolAttr?,
+        DescriptionAttr?,
         attribute case-insensitive { xsd:boolean }?,
         attribute deprecated { xsd:boolean }?,
         StaticBehavior*
@@ -27,6 +35,14 @@ StaticBehavior =
         attribute prefix { token }? &
         attribute suffix { token }? &
         SymbolAttr? &
-        attribute shouldCompleteOnConfirm { xsd:boolean }? &
+        CompleteOnConfirmAttr? &
         AppendPrepend
      }
+
+#
+# === Undocumented elements and attributes ===
+#
+
+# Found a single case in CSS completions.
+## undocumented
+DescriptionAttr = attribute description { string }

@@ -16,7 +16,15 @@
     <xs:attribute name="name" use="required" type="xs:NCName"/>
   </xs:attributeGroup>
   <!-- Regular expression element. -->
-  <xs:element name="expression" type="xs:string"/>
+  <xs:element name="expression">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="capture" type="xs:nonNegativeInteger"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
   <!-- Append/prepend elements used in completion behaviors. -->
   <xs:group name="AppendPrepend">
     <xs:sequence>
@@ -28,4 +36,16 @@
   </xs:group>
   <xs:element name="append" type="xs:string"/>
   <xs:element name="prepend" type="xs:string"/>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in CSS completions. -->
+  <xs:attributeGroup name="CaptureAttr">
+    <xs:annotation>
+      <xs:documentation>undocumented</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="capture" use="required" type="xs:nonNegativeInteger"/>
+  </xs:attributeGroup>
 </xs:schema>

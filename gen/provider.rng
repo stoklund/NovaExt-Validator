@@ -23,6 +23,9 @@
         <zeroOrMore>
           <ref name="SymbolCompletion"/>
         </zeroOrMore>
+        <optional>
+          <ref name="Assistant"/>
+        </optional>
       </interleave>
     </element>
   </define>
@@ -70,9 +73,7 @@
           </attribute>
         </optional>
         <optional>
-          <attribute name="shouldCompleteOnConfirm">
-            <data type="boolean"/>
-          </attribute>
+          <ref name="CompleteOnConfirmAttr"/>
         </optional>
         <ref name="AppendPrepend"/>
         <optional>
@@ -124,5 +125,31 @@
         </attribute>
       </optional>
     </element>
+  </define>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in CSS completions. -->
+  <define name="Assistant">
+    <a:documentation>undocumented</a:documentation>
+    <element name="assistant">
+      <attribute name="type">
+        <data type="token" datatypeLibrary=""/>
+      </attribute>
+    </element>
+  </define>
+  <define name="CompleteOnConfirmAttr">
+    <choice>
+      <attribute name="shouldCompleteOnConfirm">
+        <data type="boolean"/>
+      </attribute>
+      <!-- Possible misspelling in CSS completions? -->
+      <attribute name="complete-on-confirm">
+        <a:documentation>undocumented</a:documentation>
+        <data type="boolean"/>
+      </attribute>
+    </choice>
   </define>
 </grammar>

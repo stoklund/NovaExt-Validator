@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Common grammar definitions. -->
-<grammar ns="" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!--
     Scopes and other constructs have names like foo.identifier.
     The individual parts are XML names.
@@ -22,6 +22,9 @@
   <!-- Regular expression element. -->
   <define name="Expression">
     <element name="expression">
+      <optional>
+        <ref name="CaptureAttr"/>
+      </optional>
       <data type="string" datatypeLibrary=""/>
     </element>
   </define>
@@ -39,5 +42,17 @@
         </element>
       </optional>
     </interleave>
+  </define>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in CSS completions. -->
+  <define name="CaptureAttr">
+    <a:documentation>undocumented</a:documentation>
+    <attribute name="capture">
+      <data type="nonNegativeInteger"/>
+    </attribute>
   </define>
 </grammar>

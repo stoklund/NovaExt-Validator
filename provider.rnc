@@ -9,7 +9,8 @@ Provider =
         Selector? &
         Expression? &
         SetRef* &
-        SymbolCompletion*
+        SymbolCompletion* &
+        Assistant?
      }
 
 ## https://docs.nova.app/syntax-reference/completions/#syntax
@@ -33,7 +34,7 @@ Behavior =
     element behavior {
         attribute prefix { token }? &
         attribute suffix { token }? &
-        attribute shouldCompleteOnConfirm { xsd:boolean }? &
+        CompleteOnConfirmAttr? &
         AppendPrepend &
         BehaviorArgs?
      }
@@ -49,3 +50,20 @@ BehaviorArgs =
         attribute append-empty { xsd:boolean }?,
         attribute tokenize { xsd:boolean }?
      }
+
+#
+# === Undocumented elements and attributes ===
+#
+
+# Found in CSS completions.
+## undocumented
+Assistant =
+    element assistant {
+        attribute type { token  }
+    }
+
+CompleteOnConfirmAttr =
+    attribute shouldCompleteOnConfirm { xsd:boolean } |
+    # Possible misspelling in CSS completions?
+    ## undocumented
+    attribute complete-on-confirm { xsd:boolean }
