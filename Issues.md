@@ -186,3 +186,13 @@ The `export-local` context attribute is documented as a boolean, but Python uses
 <context behavior="whitespace" export-local="property" />
 ```
 
+## Ruby
+
+### Invalid syntax name
+
+The `+` sign is not allowed in syntax names:
+
+```xml
+<syntax name="html+erb">
+```
+
