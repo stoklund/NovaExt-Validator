@@ -15,7 +15,10 @@
         <xs:choice>
           <xs:choice>
             <xs:choice>
-              <xs:element ref="expression"/>
+              <xs:choice>
+                <xs:element ref="expression"/>
+                <xs:element ref="template"/>
+              </xs:choice>
               <xs:element ref="capture"/>
             </xs:choice>
             <xs:choice>
@@ -53,7 +56,10 @@
     </xs:annotation>
     <xs:choice>
       <xs:sequence>
-        <xs:element ref="expression"/>
+        <xs:choice>
+          <xs:element ref="expression"/>
+          <xs:element ref="template"/>
+        </xs:choice>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="capture"/>
       </xs:sequence>
       <xs:sequence>
@@ -130,6 +136,7 @@
     <xs:attribute name="lookup">
       <xs:simpleType>
         <xs:restriction base="xs:token">
+          <xs:enumeration value="index"/>
           <xs:enumeration value="inherit"/>
           <xs:enumeration value="lookup"/>
           <xs:enumeration value="dictionary"/>
@@ -143,4 +150,11 @@
     </xs:attribute>
     <xs:attribute name="atomic" type="xs:boolean"/>
   </xs:attributeGroup>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in a couple of Nova's builtin extensions. -->
+  <xs:element name="template" type="xs:string"/>
 </xs:schema>

@@ -36,7 +36,7 @@ Meta =
         },
 
         ## https://docs.nova.app/syntax-reference/syntaxes/#preferred-file-extension
-        element preferred-file-extension { token },
+        element preferred-file-extension { token }?,
 
         ## https://docs.nova.app/syntax-reference/syntaxes/#parent
         element parent { xsd:NCName }?,
@@ -139,6 +139,7 @@ include "provider.rnc" {
 #
 
 # Found in CSS and others.
+## undocumented
 Identifiers =
     element identifiers {
         element characters {

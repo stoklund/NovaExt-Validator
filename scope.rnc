@@ -21,7 +21,7 @@ ScopeElem = element scope {
 
 # The regular expressions in a scope may be followed by a number of capture elements.
 ## https://docs.nova.app/syntax-reference/scopes/#match-scopes
-ScopeExpression |= Expression, Capture*
+ScopeExpression |= (Expression | Template), Capture*
 
 # Captures for a regular expression element.
 Capture =
@@ -76,8 +76,16 @@ CollectionAttr = attribute collection {string}
 ScopeOptions =
     attribute spell-check { xsd:boolean }?,
     attribute lookup {
-        "inherit"|"lookup"|"dictionary"|
+        "index"|"inherit"|"lookup"|"dictionary"|
         ## undocumented
         "documentation"
      }?,
     attribute atomic { xsd:boolean }?
+
+#
+# === Undocumented elements and attributes ===
+#
+
+# Found in a couple of Nova's builtin extensions.
+## undocumented
+Template = element template { string }

@@ -149,3 +149,17 @@ The code blocks handle dynamic subsyntaxes like this:
 
 This mechanism is not documented (maybe intentionally?).
 
+## PHP
+
+### Static completion names
+
+In `Completions/PHP.xml` there's a bunch of static completions with a `name` attribute:
+
+```xml
+<completion name="php.HttpDeflateStream::__construct" string="HttpDeflateStream::__construct">
+    <behavior symbol="function">
+        <append>($[int $flags = 0])</append>
+    </behavior>
+</completion>
+```
+

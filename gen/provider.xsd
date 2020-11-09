@@ -4,51 +4,44 @@
   <xs:element name="provider">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="syntax"/>
+        <xs:group ref="SyntaxName"/>
         <xs:element ref="selector"/>
         <xs:element ref="expression"/>
-        <xs:group ref="SetRef"/>
         <xs:element ref="symbols"/>
         <xs:element ref="assistant"/>
       </xs:choice>
       <xs:attribute name="name" type="DottedName"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="syntax" type="xs:NCName"/>
-  <xs:element name="selector" type="xs:token"/>
-  <xs:group name="SetRef">
+  <xs:group name="SyntaxName">
     <xs:annotation>
-      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#sets</xs:documentation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#syntax</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="set" type="DottedName"/>
+      <xs:element name="syntax" type="xs:NCName"/>
     </xs:sequence>
   </xs:group>
+  <xs:element name="selector" type="xs:token"/>
   <xs:element name="symbols">
     <xs:complexType>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="Behavior"/>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="behavior"/>
+      </xs:sequence>
       <xs:attribute name="type" use="required" type="xs:token"/>
       <xs:attribute name="syntax" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
-  <xs:group name="Behavior">
-    <xs:annotation>
-      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#behaviors-1</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="behavior">
-        <xs:complexType>
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:group ref="AppendPrepend"/>
-            <xs:element ref="arguments"/>
-          </xs:choice>
-          <xs:attribute name="prefix" type="xs:token"/>
-          <xs:attribute name="suffix" type="xs:token"/>
-          <xs:attributeGroup ref="CompleteOnConfirmAttr"/>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
+  <xs:element name="behavior">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="AppendPrepend"/>
+        <xs:element ref="arguments"/>
+      </xs:choice>
+      <xs:attribute name="prefix" type="xs:token"/>
+      <xs:attribute name="suffix" type="xs:token"/>
+      <xs:attributeGroup ref="CompleteOnConfirmAttr"/>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="arguments">
     <xs:complexType>
       <xs:attribute name="prefix" type="xs:string"/>

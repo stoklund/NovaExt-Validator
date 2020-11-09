@@ -37,7 +37,10 @@
   <!-- The regular expressions in a scope may be followed by a number of capture elements. -->
   <define name="ScopeExpression" combine="choice">
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#match-scopes</a:documentation>
-    <ref name="Expression"/>
+    <choice>
+      <ref name="Expression"/>
+      <ref name="Template"/>
+    </choice>
     <zeroOrMore>
       <ref name="Capture"/>
     </zeroOrMore>
@@ -166,6 +169,7 @@
     <optional>
       <attribute name="lookup">
         <choice>
+          <value>index</value>
           <value>inherit</value>
           <value>lookup</value>
           <value>dictionary</value>
@@ -179,5 +183,17 @@
         <data type="boolean"/>
       </attribute>
     </optional>
+  </define>
+  <!--
+    
+    === Undocumented elements and attributes ===
+    
+  -->
+  <!-- Found in a couple of Nova's builtin extensions. -->
+  <define name="Template">
+    <a:documentation>undocumented</a:documentation>
+    <element name="template">
+      <data type="string" datatypeLibrary=""/>
+    </element>
   </define>
 </grammar>

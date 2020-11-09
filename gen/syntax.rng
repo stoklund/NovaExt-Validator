@@ -71,10 +71,12 @@
           <value>structured</value>
         </choice>
       </element>
-      <element name="preferred-file-extension">
-        <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#preferred-file-extension</a:documentation>
-        <data type="token" datatypeLibrary=""/>
-      </element>
+      <optional>
+        <element name="preferred-file-extension">
+          <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#preferred-file-extension</a:documentation>
+          <data type="token" datatypeLibrary=""/>
+        </element>
+      </optional>
       <optional>
         <element name="parent">
           <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#parent</a:documentation>
@@ -277,6 +279,7 @@
   -->
   <!-- Found in CSS and others. -->
   <define name="Identifiers">
+    <a:documentation>undocumented</a:documentation>
     <element name="identifiers">
       <optional>
         <element name="characters">

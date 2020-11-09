@@ -39,7 +39,7 @@
       <xs:sequence>
         <xs:element ref="name"/>
         <xs:element ref="type"/>
-        <xs:element ref="preferred-file-extension"/>
+        <xs:element minOccurs="0" ref="preferred-file-extension"/>
         <xs:element minOccurs="0" ref="parent"/>
         <xs:element minOccurs="0" ref="scriptable"/>
       </xs:sequence>
