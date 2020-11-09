@@ -255,6 +255,9 @@
       <zeroOrMore>
         <element name="collection">
           <ref name="NameAttr"/>
+          <optional>
+            <ref name="OverrideAttr"/>
+          </optional>
           <zeroOrMore>
             <ref name="AnyScope"/>
           </zeroOrMore>
@@ -344,5 +347,12 @@
         </element>
       </zeroOrMore>
     </element>
+  </define>
+  <!-- Found in the Sass extension. -->
+  <define name="OverrideAttr">
+    <a:documentation>undocumented</a:documentation>
+    <attribute name="override">
+      <data type="boolean"/>
+    </attribute>
   </define>
 </grammar>

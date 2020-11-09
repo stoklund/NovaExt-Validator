@@ -247,6 +247,7 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="AnyScope"/>
       </xs:sequence>
       <xs:attributeGroup ref="NameAttr"/>
+      <xs:attribute name="override" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="completions">
@@ -319,4 +320,11 @@
       <xs:attribute name="skip" type="xs:token"/>
     </xs:complexType>
   </xs:element>
+  <!-- Found in the Sass extension. -->
+  <xs:attributeGroup name="OverrideAttr">
+    <xs:annotation>
+      <xs:documentation>undocumented</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="override" use="required" type="xs:boolean"/>
+  </xs:attributeGroup>
 </xs:schema>

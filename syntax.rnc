@@ -124,6 +124,7 @@ Collections =
     element collections {
         element collection {
             NameAttr,
+            OverrideAttr?,
             AnyScope*
         }*
     }
@@ -168,3 +169,7 @@ Symbols =
              attribute skip { token }?
          }*
     }
+
+# Found in the Sass extension.
+## undocumented
+OverrideAttr = attribute override { xsd:boolean }

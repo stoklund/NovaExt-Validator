@@ -196,3 +196,13 @@ The `+` sign is not allowed in syntax names:
 <syntax name="html+erb">
 ```
 
+## Sass
+
+### Override collections
+
+This `override` feature is not documented:
+
+```xml
+<collection name="directives" override="true">
+```
+
