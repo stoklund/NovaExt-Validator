@@ -163,3 +163,26 @@ In `Completions/PHP.xml` there's a bunch of static completions with a `name` att
 </completion>
 ```
 
+## Python
+
+### Symbols element in top-level syntax definition
+
+Python's `<syntax>` element contains:
+
+```xml
+<symbols redefinition="within-construct">
+    <local scope="within-construct" />
+
+    <documentation mode="after" match="string" match-multiple="comment" />
+    <documentation mode="before" match-multiple="comment" skip="decorator" />
+</symbols>
+```
+
+### Unknown value for `export-local`
+
+The `export-local` context attribute is documented as a boolean, but Python uses:
+
+```xml
+<context behavior="whitespace" export-local="property" />
+```
+

@@ -40,6 +40,9 @@
           <ref name="Surrounding-Pairs"/>
         </optional>
         <optional>
+          <ref name="Symbols"/>
+        </optional>
+        <optional>
           <ref name="Scopes"/>
         </optional>
         <optional>
@@ -304,6 +307,42 @@
           </zeroOrMore>
         </element>
       </optional>
+    </element>
+  </define>
+  <!-- Found in Python: -->
+  <define name="Symbols">
+    <a:documentation>undocumented</a:documentation>
+    <element name="symbols">
+      <attribute name="redefinition">
+        <data type="token" datatypeLibrary=""/>
+      </attribute>
+      <element name="local">
+        <attribute name="scope">
+          <data type="token" datatypeLibrary=""/>
+        </attribute>
+      </element>
+      <zeroOrMore>
+        <element name="documentation">
+          <attribute name="mode">
+            <data type="token" datatypeLibrary=""/>
+          </attribute>
+          <optional>
+            <attribute name="match">
+              <data type="token" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+          <optional>
+            <attribute name="match-multiple">
+              <data type="token" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+          <optional>
+            <attribute name="skip">
+              <data type="token" datatypeLibrary=""/>
+            </attribute>
+          </optional>
+        </element>
+      </zeroOrMore>
     </element>
   </define>
 </grammar>

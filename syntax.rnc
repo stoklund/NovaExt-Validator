@@ -18,6 +18,7 @@ Syntax = element syntax {
     Comments? &
     Brackets? &
     Surrounding-Pairs? &
+    Symbols? &
     Scopes? &
     Template-Scopes? &
     Collections? &
@@ -149,4 +150,21 @@ Identifiers =
         element prefixes {
             element string { string }*
         }?
+    }
+
+# Found in Python:
+## undocumented
+Symbols =
+    element symbols {
+        attribute redefinition { token },
+        element local {
+            attribute scope { token }
+
+         },
+         element documentation {
+             attribute mode { token },
+             attribute match { token }?,
+             attribute match-multiple { token }?,
+             attribute skip { token }?
+         }*
     }

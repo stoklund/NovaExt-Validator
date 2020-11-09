@@ -7,7 +7,7 @@
         <xs:group ref="SyntaxName"/>
         <xs:element ref="selector"/>
         <xs:element ref="expression"/>
-        <xs:element ref="symbols"/>
+        <xs:group ref="SymbolCompletion"/>
         <xs:element ref="assistant"/>
       </xs:choice>
       <xs:attribute name="name" type="DottedName"/>
@@ -22,15 +22,22 @@
     </xs:sequence>
   </xs:group>
   <xs:element name="selector" type="xs:token"/>
-  <xs:element name="symbols">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="behavior"/>
-      </xs:sequence>
-      <xs:attribute name="type" use="required" type="xs:token"/>
-      <xs:attribute name="syntax" type="xs:NCName"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="SymbolCompletion">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/completions/#symbolic-completions</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="symbols">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="behavior"/>
+          </xs:sequence>
+          <xs:attribute name="type" use="required" type="xs:token"/>
+          <xs:attribute name="syntax" type="xs:NCName"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:element name="behavior">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">

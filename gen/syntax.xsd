@@ -23,6 +23,7 @@
             <xs:element ref="comments"/>
             <xs:element ref="brackets"/>
             <xs:element ref="surrounding-pairs"/>
+            <xs:group ref="Symbols"/>
             <xs:element ref="scopes"/>
             <xs:element ref="template-scopes"/>
             <xs:element ref="collections"/>
@@ -286,6 +287,36 @@
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="string"/>
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- Found in Python: -->
+  <xs:group name="Symbols">
+    <xs:annotation>
+      <xs:documentation>undocumented</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="symbols">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="local"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="documentation"/>
+          </xs:sequence>
+          <xs:attribute name="redefinition" use="required" type="xs:token"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="local">
+    <xs:complexType>
+      <xs:attribute name="scope" use="required" type="xs:token"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="documentation">
+    <xs:complexType>
+      <xs:attribute name="mode" use="required" type="xs:token"/>
+      <xs:attribute name="match" type="xs:token"/>
+      <xs:attribute name="match-multiple" type="xs:token"/>
+      <xs:attribute name="skip" type="xs:token"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>
