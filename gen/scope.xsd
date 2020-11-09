@@ -34,7 +34,7 @@
         </xs:choice>
         <xs:element ref="symbol"/>
       </xs:choice>
-      <xs:attributeGroup ref="DottedNameAttr"/>
+      <xs:attributeGroup ref="NameAttr"/>
       <xs:attributeGroup ref="ScopeOptions"/>
     </xs:complexType>
   </xs:element>
@@ -76,7 +76,7 @@
   <xs:element name="capture">
     <xs:complexType>
       <xs:attribute name="number" use="required" type="xs:nonNegativeInteger"/>
-      <xs:attributeGroup ref="DottedNameAttr"/>
+      <xs:attributeGroup ref="NameAttr"/>
     </xs:complexType>
   </xs:element>
   <xs:group name="StartEndScopeElems">
@@ -106,7 +106,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="cut-off"/>
       </xs:sequence>
-      <xs:attributeGroup ref="DottedNameAttr"/>
+      <xs:attributeGroup ref="NameAttr"/>
       <xs:attribute name="noncontiguous" type="xs:boolean"/>
       <xs:attribute name="export-symbols" type="xs:boolean"/>
       <xs:attribute name="collection" type="xs:string"/>

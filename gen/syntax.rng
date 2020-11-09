@@ -260,7 +260,7 @@
     <element name="collections">
       <zeroOrMore>
         <element name="collection">
-          <ref name="NameAttr"/>
+          <ref name="IDNameAttr"/>
           <optional>
             <ref name="OverrideAttr"/>
           </optional>

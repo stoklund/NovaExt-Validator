@@ -123,7 +123,7 @@ Template-Scopes = element template-scopes { AnyScope+ }
 Collections =
     element collections {
         element collection {
-            NameAttr,
+            IDNameAttr,
             OverrideAttr?,
             AnyScope*
         }*

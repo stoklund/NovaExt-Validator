@@ -11,7 +11,7 @@ Completions = element completions { Provider* & Set* }
 ## https://docs.nova.app/syntax-reference/completions/#static-completions
 Set =
     element set {
-        DottedNameAttr,
+        IDNameAttr,
         SymbolAttr?,
         StaticBehavior*,
         Completion*

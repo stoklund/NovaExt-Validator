@@ -246,7 +246,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="AnyScope"/>
       </xs:sequence>
-      <xs:attributeGroup ref="NameAttr"/>
+      <xs:attributeGroup ref="IDNameAttr"/>
       <xs:attribute name="override" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>

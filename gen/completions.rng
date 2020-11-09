@@ -25,7 +25,7 @@
   <define name="Set">
     <a:documentation>https://docs.nova.app/syntax-reference/completions/#static-completions</a:documentation>
     <element name="set">
-      <ref name="DottedNameAttr"/>
+      <ref name="IDNameAttr"/>
       <optional>
         <ref name="SymbolAttr"/>
       </optional>

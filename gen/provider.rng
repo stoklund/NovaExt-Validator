@@ -6,7 +6,7 @@
     <element name="provider">
       <interleave>
         <optional>
-          <ref name="DottedNameAttr"/>
+          <ref name="NameAttr"/>
         </optional>
         <optional>
           <ref name="SyntaxName"/>
@@ -44,7 +44,7 @@
   <define name="SetRef">
     <a:documentation>https://docs.nova.app/syntax-reference/completions/#sets</a:documentation>
     <element name="set">
-      <ref name="DottedName"/>
+      <data type="NCName"/>
     </element>
   </define>
   <define name="SymbolCompletion">

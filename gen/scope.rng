@@ -19,7 +19,7 @@
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#match-scopes</a:documentation>
     <element name="scope">
       <interleave>
-        <ref name="DottedNameAttr">
+        <ref name="NameAttr">
           <a:documentation>https://docs.nova.app/syntax-reference/scopes/#scope-names</a:documentation>
         </ref>
         <ref name="ScopeOptions"/>
@@ -51,7 +51,7 @@
       <attribute name="number">
         <data type="nonNegativeInteger"/>
       </attribute>
-      <ref name="DottedNameAttr"/>
+      <ref name="NameAttr"/>
     </element>
   </define>
   <define name="StartEndScopeElems">
@@ -81,7 +81,7 @@
   <define name="SubSyntax">
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#subsyntaxes</a:documentation>
     <element name="subsyntax">
-      <ref name="DottedNameAttr"/>
+      <ref name="NameAttr"/>
       <optional>
         <attribute name="noncontiguous">
           <data type="boolean"/>

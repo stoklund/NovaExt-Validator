@@ -2,12 +2,10 @@
 default namespace = ""
 
 # Scopes and other constructs have names like foo.identifier.
-# The individual parts are XML names.
-DottedNameAttr = attribute name { DottedName }
-DottedName = token
-
-# Some constructs have plain names without any dots.
 NameAttr = attribute name { xsd:NCName }
+
+# Sometimes the name must be unique in the file.
+IDNameAttr = attribute name { xsd:ID }
 
 # Regular expression element.
 Expression = element expression { CaptureAttr?, string }

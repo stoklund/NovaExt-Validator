@@ -4,7 +4,7 @@ default namespace = ""
 ## https://docs.nova.app/syntax-reference/completions/#providers
 Provider =
     element provider {
-        DottedNameAttr? &
+        NameAttr? &
         SyntaxName? &
         Selector? &
         Expression? &
@@ -20,7 +20,7 @@ SyntaxName = element syntax { xsd:NCName }
 Selector = element selector { token }
 
 ## https://docs.nova.app/syntax-reference/completions/#sets
-SetRef = element set { DottedName }
+SetRef = element set { xsd:NCName }
 
 ## https://docs.nova.app/syntax-reference/completions/#symbolic-completions
 SymbolCompletion =

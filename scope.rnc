@@ -12,7 +12,7 @@ AnyScope = ScopeElem | CutOffScope | IncludeScope
 ## https://docs.nova.app/syntax-reference/scopes/#match-scopes
 ScopeElem = element scope {
     ## https://docs.nova.app/syntax-reference/scopes/#scope-names
-    DottedNameAttr &
+    NameAttr &
     ScopeOptions &
     # Either a match scope or a start-end scope.
     (ScopeExpression | StartEndScopeElems) &
@@ -27,7 +27,7 @@ ScopeExpression |= (Expression | Template), Capture*
 Capture =
     element capture {
             attribute number { xsd:nonNegativeInteger },
-            DottedNameAttr
+            NameAttr
     }
 
 ## https://docs.nova.app/syntax-reference/scopes/#start-end-scopes
@@ -41,7 +41,7 @@ SubScopes = element subscopes { AnyScope* }
 ## https://docs.nova.app/syntax-reference/scopes/#subsyntaxes
 SubSyntax =
         element subsyntax {
-            DottedNameAttr,
+            NameAttr,
             attribute noncontiguous { xsd:boolean }?,
             attribute export-symbols { xsd:boolean }?,
             ## undocumented
