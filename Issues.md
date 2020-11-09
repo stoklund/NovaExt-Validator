@@ -206,3 +206,17 @@ This `override` feature is not documented:
 <collection name="directives" override="true">
 ```
 
+## Typescript
+
+### Scope-level include scope
+
+This looks like a bug:
+
+```xml
+<scope name="typescript.arguments">
+    <include syntax="self" collection="comments" />
+    <starts-with>
+        <expression>\(</expression>
+        <capture number="0" name="typescript.bracket" />
+    </starts-with>
+```
