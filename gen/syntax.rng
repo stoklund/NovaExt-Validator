@@ -160,12 +160,18 @@
   <define name="Indentation">
     <a:documentation>https://docs.nova.app/syntax-reference/syntaxes/#indentation-rules</a:documentation>
     <element name="indentation">
-      <element name="increase">
-        <ref name="Expression"/>
-      </element>
-      <element name="decrease">
-        <ref name="Expression"/>
-      </element>
+      <interleave>
+        <optional>
+          <element name="increase">
+            <ref name="Expression"/>
+          </element>
+        </optional>
+        <optional>
+          <element name="decrease">
+            <ref name="Expression"/>
+          </element>
+        </optional>
+      </interleave>
     </element>
   </define>
   <define name="Comments">

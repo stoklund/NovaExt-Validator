@@ -135,10 +135,10 @@
   </xs:element>
   <xs:element name="indentation">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="increase"/>
-        <xs:element ref="decrease"/>
-      </xs:sequence>
+      <xs:all>
+        <xs:element minOccurs="0" ref="increase"/>
+        <xs:element minOccurs="0" ref="decrease"/>
+      </xs:all>
     </xs:complexType>
   </xs:element>
   <xs:element name="increase">

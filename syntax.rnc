@@ -82,8 +82,8 @@ CompoundDetector =
 ## https://docs.nova.app/syntax-reference/syntaxes/#indentation-rules
 Indentation =
     element indentation {
-        element increase { Expression },
-        element decrease { Expression }
+        element increase { Expression }? &
+        element decrease { Expression }?
     }
 
 ## https://docs.nova.app/syntax-reference/syntaxes/#comment-rules
