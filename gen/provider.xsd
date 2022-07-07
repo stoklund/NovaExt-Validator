@@ -16,12 +16,13 @@
   </xs:element>
   <xs:element name="syntax" type="xs:NCName"/>
   <xs:element name="selector" type="xs:token"/>
+  <!-- May also contain variables: <set>css.at-rule.media.feature-values.${feature}</set> -->
   <xs:group name="SetRef">
     <xs:annotation>
       <xs:documentation>https://docs.nova.app/syntax-reference/completions/#sets</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="set" type="xs:NCName"/>
+      <xs:element name="set" type="xs:string"/>
     </xs:sequence>
   </xs:group>
   <xs:element name="symbols">

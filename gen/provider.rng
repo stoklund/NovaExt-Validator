@@ -8,9 +8,9 @@
         <optional>
           <ref name="NameAttr"/>
         </optional>
-        <optional>
+        <zeroOrMore>
           <ref name="SyntaxName"/>
-        </optional>
+        </zeroOrMore>
         <optional>
           <ref name="Selector"/>
         </optional>
@@ -41,10 +41,11 @@
       <data type="token" datatypeLibrary=""/>
     </element>
   </define>
+  <!-- May also contain variables: <set>css.at-rule.media.feature-values.${feature}</set> -->
   <define name="SetRef">
     <a:documentation>https://docs.nova.app/syntax-reference/completions/#sets</a:documentation>
     <element name="set">
-      <data type="NCName"/>
+      <data type="string" datatypeLibrary=""/>
     </element>
   </define>
   <define name="SymbolCompletion">

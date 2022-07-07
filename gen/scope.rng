@@ -15,6 +15,23 @@
       <ref name="IncludeScope"/>
     </choice>
   </define>
+  <define name="AnyScopeOptions">
+    <optional>
+      <attribute name="atomic">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="optional">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="repeat">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+  </define>
   <define name="ScopeElem">
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#match-scopes</a:documentation>
     <element name="scope">
@@ -23,6 +40,7 @@
           <a:documentation>https://docs.nova.app/syntax-reference/scopes/#scope-names</a:documentation>
         </ref>
         <ref name="ScopeOptions"/>
+        <ref name="AnyScopeOptions"/>
         <!-- Either a match scope or a start-end scope. -->
         <choice>
           <ref name="ScopeExpression"/>
@@ -61,7 +79,9 @@
         <ref name="ScopeExpression"/>
       </element>
       <element name="ends-with">
-        <ref name="ScopeExpression"/>
+        <optional>
+          <ref name="ScopeExpression"/>
+        </optional>
       </element>
       <optional>
         <choice>
@@ -73,6 +93,16 @@
   </define>
   <define name="SubScopes">
     <element name="subscopes">
+      <optional>
+        <attribute name="anchored">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="skip-whitespace">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
       <zeroOrMore>
         <ref name="AnyScope"/>
       </zeroOrMore>
@@ -140,18 +170,24 @@
   <define name="CutOffScope">
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#cut-off-scopes</a:documentation>
     <element name="cut-off">
-      <ref name="Expression"/>
+      <interleave>
+        <ref name="AnyScopeOptions"/>
+        <ref name="ScopeExpression"/>
+      </interleave>
     </element>
   </define>
   <define name="IncludeScope">
     <a:documentation>https://docs.nova.app/syntax-reference/scopes/#include-scopes</a:documentation>
     <element name="include">
-      <attribute name="syntax">
-        <data type="string" datatypeLibrary=""/>
-      </attribute>
-      <optional>
-        <ref name="CollectionAttr"/>
-      </optional>
+      <interleave>
+        <attribute name="syntax">
+          <data type="string" datatypeLibrary=""/>
+        </attribute>
+        <ref name="AnyScopeOptions"/>
+        <optional>
+          <ref name="CollectionAttr"/>
+        </optional>
+      </interleave>
     </element>
   </define>
   <define name="CollectionAttr">
@@ -180,6 +216,16 @@
     </optional>
     <optional>
       <attribute name="atomic">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="optional">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="repeat">
         <data type="boolean"/>
       </attribute>
     </optional>

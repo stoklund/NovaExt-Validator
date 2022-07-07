@@ -23,6 +23,7 @@
         </xs:simpleType>
       </xs:attribute>
       <xs:attribute name="anonymous" type="xs:boolean"/>
+      <xs:attribute name="name-selector" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="TypeAttr">
@@ -48,6 +49,12 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="AnonymousAttr">
     <xs:attribute name="anonymous" use="required" type="xs:boolean"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="NameSelectorAttr">
+    <xs:annotation>
+      <xs:documentation>https://docs.nova.app/syntax-reference/symbols/#computing-a-symbols-name</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="name-selector" use="required" type="xs:string"/>
   </xs:attributeGroup>
   <xs:element name="display-name">
     <xs:complexType>

@@ -15,6 +15,9 @@
           <ref name="AnonymousAttr"/>
         </optional>
         <optional>
+          <ref name="NameSelectorAttr"/>
+        </optional>
+        <optional>
           <ref name="DisplayName"/>
         </optional>
         <optional>
@@ -46,6 +49,12 @@
   <define name="AnonymousAttr">
     <attribute name="anonymous">
       <data type="boolean"/>
+    </attribute>
+  </define>
+  <define name="NameSelectorAttr">
+    <a:documentation>https://docs.nova.app/syntax-reference/symbols/#computing-a-symbols-name</a:documentation>
+    <attribute name="name-selector">
+      <data type="string" datatypeLibrary=""/>
     </attribute>
   </define>
   <define name="DisplayName">
