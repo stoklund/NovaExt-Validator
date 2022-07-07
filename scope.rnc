@@ -9,11 +9,17 @@ include "symbol.rnc"
 # All four types of scopes. Both match and start-end scopes are represented by ScopeElem.
 AnyScope = ScopeElem | CutOffScope | IncludeScope
 
+AnyScopeOptions =
+    attribute atomic { xsd:boolean }?,
+    attribute optional { xsd:boolean }?,
+    attribute repeat { xsd:boolean }?
+
 ## https://docs.nova.app/syntax-reference/scopes/#match-scopes
 ScopeElem = element scope {
     ## https://docs.nova.app/syntax-reference/scopes/#scope-names
     NameAttr &
     ScopeOptions &
+    AnyScopeOptions &
     # Either a match scope or a start-end scope.
     (ScopeExpression | StartEndScopeElems) &
     Symbol?
@@ -33,10 +39,14 @@ Capture =
 ## https://docs.nova.app/syntax-reference/scopes/#start-end-scopes
 StartEndScopeElems =
     element starts-with { ScopeExpression } &
-    element ends-with { ScopeExpression } &
+    element ends-with { ScopeExpression? } &
     (SubScopes | SubSyntax)?
 
-SubScopes = element subscopes { AnyScope* }
+SubScopes = element subscopes {
+    attribute anchored {xsd:boolean}?,
+    attribute skip-whitespace {xsd:boolean}?,
+    AnyScope*
+}
 
 ## https://docs.nova.app/syntax-reference/scopes/#subsyntaxes
 SubSyntax =
@@ -62,11 +72,15 @@ ScopeExpression |=
     Capture*
 
 ## https://docs.nova.app/syntax-reference/scopes/#cut-off-scopes
-CutOffScope = element cut-off { Expression }
+CutOffScope = element cut-off {
+    AnyScopeOptions &
+    ScopeExpression
+}
 
 ## https://docs.nova.app/syntax-reference/scopes/#include-scopes
 IncludeScope = element include {
-    attribute syntax {string},
+    attribute syntax {string} &
+    AnyScopeOptions &
     CollectionAttr?
 }
 
@@ -80,7 +94,9 @@ ScopeOptions =
         ## undocumented
         "documentation"
      }?,
-    attribute atomic { xsd:boolean }?
+    attribute atomic { xsd:boolean }?,
+    attribute optional { xsd:boolean }?,
+    attribute repeat { xsd:boolean }?
 
 #
 # === Undocumented elements and attributes ===

@@ -6,18 +6,22 @@ Symbol = element symbol {
     TypeAttr &
     ScopeAttr? &
     AnonymousAttr? &
+    NameSelectorAttr? &
     DisplayName? &
     Filter? &
     Context?
 }
 
 ## https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-type
-TypeAttr = attribute type {string}
+TypeAttr = attribute type { string }
 
 ## https://docs.nova.app/syntax-reference/symbols/#defining-a-symbol-s-scope
 ScopeAttr =
     attribute scope { "global"|"private"|"local"|"external" }
 AnonymousAttr = attribute anonymous { xsd:boolean }
+
+## https://docs.nova.app/syntax-reference/symbols/#computing-a-symbols-name
+NameSelectorAttr = attribute name-selector { string }
 
 ## https://docs.nova.app/syntax-reference/symbols/#computing-a-symbol-s-display-name
 DisplayName =

@@ -5,7 +5,7 @@ default namespace = ""
 Provider =
     element provider {
         NameAttr? &
-        SyntaxName? &
+        SyntaxName* &
         Selector? &
         Expression? &
         SetRef* &
@@ -20,7 +20,8 @@ SyntaxName = element syntax { xsd:NCName }
 Selector = element selector { token }
 
 ## https://docs.nova.app/syntax-reference/completions/#sets
-SetRef = element set { xsd:NCName }
+# May also contain variables: <set>css.at-rule.media.feature-values.${feature}</set>
+SetRef = element set { string }
 
 ## https://docs.nova.app/syntax-reference/completions/#symbolic-completions
 SymbolCompletion =
